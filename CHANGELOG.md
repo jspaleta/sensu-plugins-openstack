@@ -4,6 +4,17 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachangelog.com/)
 
 ## [Unreleased]
+### Breaking Changes
+- Update runtime dependency for sensu-plugin
+- Minimum required ruby is 2.3
+
+### Changes
+- update dev dep for rake 
+- update dev dep for rubocop
+- update dev dep for bundler 
+- update dev dep for code-climate
+- update dev dep for rake
+- update dev dep for yard
 
 ## [1.0.0] 2017-07-14
 ### Added
