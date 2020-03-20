@@ -108,7 +108,7 @@ class KeystoneTokenCounts < Sensu::Plugin::Metric::CLI::Graphite
     rescue StandardError => e
       puts e.message
     ensure
-      mysql.close if mysql
+      mysql&.close
     end
     ok
   end

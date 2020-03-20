@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module SensuPluginsOpenstack
   module Version
     MAJOR = 1
