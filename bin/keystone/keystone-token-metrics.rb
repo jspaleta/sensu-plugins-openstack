@@ -1,5 +1,6 @@
 #!/usr/bin/env ruby
-#
+# frozen_string_literal: true
+ 
 # Get OpenStack Keystone token counts from MySQL
 # ===
 #
