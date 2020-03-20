@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
- 
+
 # Get OpenStack Keystone token counts from MySQL
 # ===
 #
@@ -78,17 +78,17 @@ class KeystoneTokenCounts < Sensu::Plugin::Metric::CLI::Graphite
       config[:by_user] = true
       where = "WHERE user.name IN ('#{config[:ks_users].gsub(/,/, "', '")}')"
     end
-    metrics = %w(active expired total)
-    sql = <<-eosql
-SELECT #{'user.name,' if config[:by_user]}
-  SUM(IF(NOW() <= expires,1,0)) AS active,
-  SUM(IF(NOW() > expires,1,0)) AS expired,
-COUNT(*) AS total FROM token
-    eosql
-    sql.concat <<-eosql if config[:by_user]
-LEFT JOIN user ON token.user_id = user.id #{where}
-GROUP BY user.name
-    eosql
+    metrics = %w[active expired total]
+    sql = <<~EOSQL
+      SELECT #{'user.name,' if config[:by_user]}
+        SUM(IF(NOW() <= expires,1,0)) AS active,
+        SUM(IF(NOW() > expires,1,0)) AS expired,
+      COUNT(*) AS total FROM token
+    EOSQL
+    sql.concat <<~EOSQL if config[:by_user]
+      LEFT JOIN user ON token.user_id = user.id #{where}
+      GROUP BY user.name
+    EOSQL
     begin
       mysql = Mysql2::Client.new(
         host: config[:host], port: config[:port],
@@ -105,7 +105,7 @@ GROUP BY user.name
           end
         end
       end
-    rescue => e
+    rescue StandardError => e
       puts e.message
     ensure
       mysql.close if mysql
